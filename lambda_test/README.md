@@ -1,14 +1,60 @@
-# Welcome to your CDK TypeScript project
+# CDK TypeScript project for Lambda
 
-This is a blank project for TypeScript development with CDK.
+This is a project for invoking Lambda
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## Development Environment
 
-## Useful commands
+```
+$ pip list | grep localstack
+localstack               0.14.0.8
+localstack-client        1.32
+localstack-ext           0.14.0.23
+localstack-plugin-loader 1.1.1
+```
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+```
+$ npm list -g
+/home/xxx/.nvm/versions/node/v16.13.2/lib
+├── aws-cdk-local@2.14.0
+├── aws-cdk@2.15.0
+├── corepack@0.10.0
+└── npm@8.5.3
+```
+
+## Invoking Lambda
+
+### Without payloads
+
+```sh
+awslocal lambda invoke --function-name Hello response.json
+```
+
+### With payloads
+
+```sh
+awslocal lambda invoke --function-name Hello --payload '{ "message": "World" }' response.json
+```
+
+## Confirming CloudWatch Logs
+
+### To describe log groups
+
+```sh
+awslocal logs describe-log-groups
+```
+
+### To describe log streams
+
+For example,
+
+```sh
+awslocal logs describe-log-streams --log-group-name "/aws/lambda/Hello"
+```
+
+### To get log events
+
+For example,
+
+```sh
+awslocal logs get-log-events --log-group-name "/aws/lambda/Hello" --log-stream-name "2022/03/05/[LATEST]8538bf48"
+```
