@@ -5,11 +5,8 @@ This is a project for invoking Lambda
 ## Development Environment
 
 ```
-$ pip list | grep localstack
-localstack               0.14.0.8
-localstack-client        1.32
-localstack-ext           0.14.0.23
-localstack-plugin-loader 1.1.1
+$ docker image ls | grep localstack
+localstack/localstack       0.12.20             9636a7470495        4 months ago        833MB
 ```
 
 ```
@@ -21,18 +18,25 @@ $ npm list -g
 └── npm@8.5.3
 ```
 
+```sh
+$ aws --version
+aws-cli/2.4.23 Python/3.8.8 Linux/5.4.0-1065-gcp exe/x86_64.ubuntu.18 prompt/off
+```
+
 ## Invoking Lambda
 
 ### Without payloads
 
 ```sh
-awslocal lambda invoke --function-name Hello response.json
+aws --endpoint-url=http://localhost:4566 lambda invoke --function-name Hello response.json
 ```
+
+In the following, `--endpoint-url` is omitted.
 
 ### With payloads
 
 ```sh
-awslocal lambda invoke --function-name Hello --payload '{ "message": "World" }' response.json
+aws lambda invoke --function-name Hello --payload $(echo '{ "message": "World" }' | base64) response.json
 ```
 
 ## Confirming CloudWatch Logs
@@ -40,7 +44,7 @@ awslocal lambda invoke --function-name Hello --payload '{ "message": "World" }' 
 ### To describe log groups
 
 ```sh
-awslocal logs describe-log-groups
+aws logs describe-log-groups
 ```
 
 ### To describe log streams
@@ -48,7 +52,7 @@ awslocal logs describe-log-groups
 For example,
 
 ```sh
-awslocal logs describe-log-streams --log-group-name "/aws/lambda/Hello"
+aws logs describe-log-streams --log-group-name "/aws/lambda/Hello"
 ```
 
 ### To get log events
@@ -56,5 +60,5 @@ awslocal logs describe-log-streams --log-group-name "/aws/lambda/Hello"
 For example,
 
 ```sh
-awslocal logs get-log-events --log-group-name "/aws/lambda/Hello" --log-stream-name "2022/03/05/[LATEST]8538bf48"
+aws logs get-log-events --log-group-name "/aws/lambda/Hello" --log-stream-name "2022/03/05/[LATEST]8538bf48"
 ```
