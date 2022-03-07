@@ -33,9 +33,11 @@ export class StepFunctionsTestStack extends Stack {
 
     const definition = submitJob;
 
+    // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_stepfunctions.StateMachine.html
     const stateMachine = new sfn.StateMachine(this, 'FibonacciStateMachine', {
-        definition: definition,
-        timeout: Duration.seconds(60)
+      stateMachineName: 'FibonacciStateMachine',
+      definition: definition,
+      timeout: Duration.seconds(60)
     });
 
     return stateMachine;
