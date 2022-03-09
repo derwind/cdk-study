@@ -17,13 +17,22 @@ export class StepFunctionsTestStack extends Stack {
 
   // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_stepfunctions-readme.html
   private newStateMachine(): sfn.StateMachine {
+    const defaultValuesLambda = new lambda.Function(this, 'Default values', {
+      functionName: 'DefaultValues',
+      runtime: lambda.Runtime.PYTHON_3_9,
+      architecture: lambda.Architecture.X86_64,
+      handler: 'index.lambda_handler',
+      code: lambda.Code.fromAsset('./lambda/default_values'),
+      timeout: Duration.seconds(3)
+    });
+
     const fibonacciLambda = new lambda.Function(this, 'Fibonacci', {
       functionName: 'Fibonacci',
       runtime: lambda.Runtime.PYTHON_3_9,
       architecture: lambda.Architecture.X86_64,
       handler: 'index.lambda_handler',
       code: lambda.Code.fromAsset('./lambda/fibonacci'),
-      timeout: Duration.seconds(5)
+      timeout: Duration.seconds(3)
     });
 
     const powLambda = new lambda.Function(this, 'Pow', {
@@ -32,10 +41,15 @@ export class StepFunctionsTestStack extends Stack {
       architecture: lambda.Architecture.X86_64,
       handler: 'index.lambda_handler',
       code: lambda.Code.fromAsset('./lambda/pow'),
-      timeout: Duration.seconds(5)
+      timeout: Duration.seconds(3)
     });
 
     const submitJob = new tasks.LambdaInvoke(this, 'Submit Job', {
+      lambdaFunction: defaultValuesLambda,
+      outputPath: '$.Payload',
+    }).addRetry({ maxAttempts: 1 });
+
+    const fibonacciJob = new tasks.LambdaInvoke(this, 'Fibonacci Job', {
       lambdaFunction: fibonacciLambda,
       outputPath: '$.Payload',
     }).addRetry({ maxAttempts: 1 });
@@ -58,6 +72,7 @@ export class StepFunctionsTestStack extends Stack {
     map.iterator(powJob);
 
     const definition = submitJob
+      .next(fibonacciJob)
       .next(map);
 
     // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_stepfunctions.StateMachine.html

@@ -10,15 +10,12 @@ def fibonacci(n_terms):
     return terms
 
 def lambda_handler(event, context):
-    n_terms = 5
-    if 'n_terms' in event:
-        n_terms = event['n_terms']
+    n_terms = event['n_terms']
 
-    return {
-        'fibonacci': fibonacci(n_terms),
-        'exponent': 2,
-        'statusCode': 200,
-    }
+    event['fibonacci'] = fibonacci(n_terms)
+    event['statusCode'] = 200
+
+    return event
 
 if __name__ == '__main__':
     for n_terms in range(7):
