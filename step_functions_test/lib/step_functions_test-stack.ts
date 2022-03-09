@@ -44,6 +44,15 @@ export class StepFunctionsTestStack extends Stack {
       timeout: Duration.seconds(3)
     });
 
+    const sumLambda = new lambda.Function(this, 'Sum', {
+      functionName: 'Sum',
+      runtime: lambda.Runtime.PYTHON_3_9,
+      architecture: lambda.Architecture.X86_64,
+      handler: 'index.lambda_handler',
+      code: lambda.Code.fromAsset('./lambda/sum'),
+      timeout: Duration.seconds(3)
+    });
+
     const submitJob = new tasks.LambdaInvoke(this, 'Submit Job', {
       lambdaFunction: defaultValuesLambda,
       outputPath: '$.Payload',
@@ -71,9 +80,16 @@ export class StepFunctionsTestStack extends Stack {
 
     map.iterator(powJob);
 
+    const sumJob = new tasks.LambdaInvoke(this, 'Sum Job', {
+      lambdaFunction: sumLambda,
+      inputPath: '$',
+      outputPath: '$.Payload',
+    }).addRetry({ maxAttempts: 1 });
+
     const definition = submitJob
       .next(fibonacciJob)
-      .next(map);
+      .next(map)
+      .next(sumJob);
 
     // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_stepfunctions.StateMachine.html
     const stateMachine = new sfn.StateMachine(this, 'FibonacciStateMachine', {
