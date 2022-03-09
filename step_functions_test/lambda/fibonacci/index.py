@@ -16,6 +16,7 @@ def lambda_handler(event, context):
 
     return {
         'fibonacci': fibonacci(n_terms),
+        'exponent': 2,
         'statusCode': 200,
     }
 
