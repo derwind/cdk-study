@@ -23,7 +23,7 @@ $ aws --version
 aws-cli/2.4.23 Python/3.8.8 Linux/5.4.0-1065-gcp exe/x86_64.ubuntu.18 prompt/off
 ```
 
-## Invoking Lambda
+## Invoking Step Functions
 
 ```sh
 aws --endpoint-url=http://localhost:4566 stepfunctions start-execution --state-machine-arn "arn:aws:states:us-east-1:000000000000:stateMachine:FibonacciStateMachine"
