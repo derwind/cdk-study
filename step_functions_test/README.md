@@ -6,14 +6,14 @@ This is a project for invoking Step Functions
 
 ```
 $ docker image ls | grep localstack
-localstack/localstack       0.12.20             9636a7470495        4 months ago        833MB
+localstack/localstack       0.14.1              354d99d5680a        22 hours ago        1.5GB
 ```
 
 ```
 $ npm list -g
 /home/xxx/.nvm/versions/node/v16.13.2/lib
 ├── aws-cdk-local@2.14.0
-├── aws-cdk@2.15.0
+├── aws-cdk@2.16.0
 ├── corepack@0.10.0
 └── npm@8.5.3
 ```
