@@ -1,0 +1,42 @@
+# CDK TypeScript project for EC2
+
+This is a project for starting EC2 inspired by [cm-tanaka-keisuke/developersio-cdk](https://github.com/cm-tanaka-keisuke/developersio-cdk).
+
+## Development Environment
+
+```
+$ docker image ls | grep localstack
+localstack/localstack       0.14.1              354d99d5680a        22 hours ago        1.5GB
+```
+
+```
+$ npm list -g
+/home/xxx/.nvm/versions/node/v16.13.2/lib
+├── aws-cdk-local@2.14.0
+├── aws-cdk@2.16.0
+├── corepack@0.10.0
+└── npm@8.5.3
+```
+
+```sh
+$ aws --version
+aws-cli/2.4.23 Python/3.8.8 Linux/5.4.0-1065-gcp exe/x86_64.ubuntu.18 prompt/off
+```
+
+## Dploying Stacks
+
+### all
+
+```sh
+cdklocal deploy --all
+```
+
+### each stack
+
+For example,
+
+```sh
+$ cdklocal deploy IamStack
+```
+
+## Starting EC2
