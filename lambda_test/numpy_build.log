@@ -1,0 +1,205 @@
+$ cdklocal deploy
+Sending build context to Docker daemon  57.34kB
+Step 1/8 : ARG IMAGE=public.ecr.aws/sam/build-python3.7
+Step 2/8 : FROM $IMAGE
+latest: Pulling from sam/build-python3.7
+677629673abb: Pull complete
+c5a26d512608: Pull complete
+463d3a5fe45f: Pull complete
+552377ed6f51: Pull complete
+5359c3d6eb49: Pull complete
+6d0cb2f769c0: Pull complete
+aafb518d2462: Pull complete
+73995b2e9047: Pull complete
+a1714d198b1e: Pull complete
+Digest: sha256:a5a2b3c90c2717bef8b6a72c01c4683fa671cd4b9366e73f727879dd026dfbde
+Status: Downloaded newer image for public.ecr.aws/sam/build-python3.7:latest
+ ---> 4d51ba39d68e
+Step 3/8 : ARG PIP_INDEX_URL
+ ---> Running in 785a01f20c4c
+Removing intermediate container 785a01f20c4c
+ ---> 4aa26f4b359b
+Step 4/8 : ARG PIP_EXTRA_INDEX_URL
+ ---> Running in be912ca08209
+Removing intermediate container be912ca08209
+ ---> 69a5beb82b9f
+Step 5/8 : ARG HTTPS_PROXY
+ ---> Running in cc079eaa2867
+Removing intermediate container cc079eaa2867
+ ---> 1597b216bcdf
+Step 6/8 : RUN pip install --upgrade pip
+ ---> Running in 0ee634ecc390
+Requirement already satisfied: pip in /var/lang/lib/python3.7/site-packages (22.0.4)
+Collecting pip
+  Downloading pip-22.1-py3-none-any.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 51.1 MB/s eta 0:00:00
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 22.0.4
+    Uninstalling pip-22.0.4:
+      Successfully uninstalled pip-22.0.4
+Successfully installed pip-22.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Removing intermediate container 0ee634ecc390
+ ---> ab2132eb6838
+Step 7/8 : RUN pip install pipenv==2022.4.8 poetry
+ ---> Running in 955dfa20e7e1
+Collecting pipenv==2022.4.8
+  Downloading pipenv-2022.4.8-py2.py3-none-any.whl (3.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 71.2 MB/s eta 0:00:00
+Collecting poetry
+  Downloading poetry-1.1.13-py2.py3-none-any.whl (175 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 175.1/175.1 kB 25.1 MB/s eta 0:00:00
+Requirement already satisfied: pip>=18.0 in /var/lang/lib/python3.7/site-packages (from pipenv==2022.4.8) (22.1)
+Collecting virtualenv
+  Downloading virtualenv-20.14.1-py2.py3-none-any.whl (8.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.8/8.8 MB 77.1 MB/s eta 0:00:00
+Collecting certifi
+  Downloading certifi-2021.10.8-py2.py3-none-any.whl (149 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 149.2/149.2 kB 24.0 MB/s eta 0:00:00
+Requirement already satisfied: setuptools>=36.2.1 in /var/lang/lib/python3.7/site-packages (from pipenv==2022.4.8) (47.1.0)
+Collecting virtualenv-clone>=0.2.5
+  Downloading virtualenv_clone-0.5.7-py3-none-any.whl (6.6 kB)
+Collecting cleo<0.9.0,>=0.8.1
+  Downloading cleo-0.8.1-py2.py3-none-any.whl (21 kB)
+Collecting requests-toolbelt<0.10.0,>=0.9.1
+  Downloading requests_toolbelt-0.9.1-py2.py3-none-any.whl (54 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 54.3/54.3 kB 10.4 MB/s eta 0:00:00
+Collecting keyring>=21.2.0
+  Downloading keyring-23.5.0-py3-none-any.whl (33 kB)
+Collecting requests<3.0,>=2.18
+  Downloading requests-2.27.1-py2.py3-none-any.whl (63 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.1/63.1 kB 10.8 MB/s eta 0:00:00
+Collecting importlib-metadata<2.0.0,>=1.6.0
+  Downloading importlib_metadata-1.7.0-py2.py3-none-any.whl (31 kB)
+Collecting packaging<21.0,>=20.4
+  Downloading packaging-20.9-py2.py3-none-any.whl (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.9/40.9 kB 7.9 MB/s eta 0:00:00
+Collecting crashtest<0.4.0,>=0.3.0
+  Downloading crashtest-0.3.1-py3-none-any.whl (7.0 kB)
+Collecting pexpect<5.0.0,>=4.7.0
+  Downloading pexpect-4.8.0-py2.py3-none-any.whl (59 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.0/59.0 kB 11.9 MB/s eta 0:00:00
+Collecting shellingham<2.0,>=1.1
+  Downloading shellingham-1.4.0-py2.py3-none-any.whl (9.4 kB)
+Collecting tomlkit<1.0.0,>=0.7.0
+  Downloading tomlkit-0.10.2-py3-none-any.whl (34 kB)
+Collecting cachy<0.4.0,>=0.3.0
+  Downloading cachy-0.3.0-py2.py3-none-any.whl (20 kB)
+Collecting poetry-core<1.1.0,>=1.0.7
+  Downloading poetry_core-1.0.8-py2.py3-none-any.whl (425 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 425.0/425.0 kB 44.2 MB/s eta 0:00:00
+Collecting cachecontrol[filecache]<0.13.0,>=0.12.9
+  Downloading CacheControl-0.12.11-py2.py3-none-any.whl (21 kB)
+Collecting clikit<0.7.0,>=0.6.2
+  Downloading clikit-0.6.2-py2.py3-none-any.whl (91 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.8/91.8 kB 16.5 MB/s eta 0:00:00
+Collecting html5lib<2.0,>=1.0
+  Downloading html5lib-1.1-py2.py3-none-any.whl (112 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 112.2/112.2 kB 19.3 MB/s eta 0:00:00
+Collecting pkginfo<2.0,>=1.4
+  Downloading pkginfo-1.8.2-py2.py3-none-any.whl (26 kB)
+Collecting msgpack>=0.5.2
+  Downloading msgpack-1.0.3-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (299 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 299.4/299.4 kB 38.8 MB/s eta 0:00:00
+Collecting lockfile>=0.9
+  Downloading lockfile-0.12.2-py2.py3-none-any.whl (13 kB)
+Collecting pylev<2.0,>=1.3
+  Downloading pylev-1.4.0-py2.py3-none-any.whl (6.1 kB)
+Collecting pastel<0.3.0,>=0.2.0
+  Downloading pastel-0.2.1-py2.py3-none-any.whl (6.0 kB)
+Collecting six>=1.9
+  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Collecting webencodings
+  Downloading webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+Collecting zipp>=0.5
+  Downloading zipp-3.8.0-py3-none-any.whl (5.4 kB)
+Collecting keyring>=21.2.0
+  Downloading keyring-23.4.1-py3-none-any.whl (33 kB)
+  Downloading keyring-23.4.0-py3-none-any.whl (33 kB)
+  Downloading keyring-23.3.0-py3-none-any.whl (33 kB)
+  Downloading keyring-23.2.1-py3-none-any.whl (33 kB)
+  Downloading keyring-23.2.0-py3-none-any.whl (33 kB)
+  Downloading keyring-23.1.0-py3-none-any.whl (32 kB)
+  Downloading keyring-23.0.1-py3-none-any.whl (33 kB)
+  Downloading keyring-23.0.0-py3-none-any.whl (32 kB)
+  Downloading keyring-22.4.0-py3-none-any.whl (58 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.5/58.5 kB 11.4 MB/s eta 0:00:00
+  Downloading keyring-22.3.0-py3-none-any.whl (58 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.6/58.6 kB 10.7 MB/s eta 0:00:00
+Collecting SecretStorage>=3.2
+  Downloading SecretStorage-3.3.2-py3-none-any.whl (15 kB)
+Collecting jeepney>=0.4.2
+  Downloading jeepney-0.8.0-py3-none-any.whl (48 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.4/48.4 kB 9.7 MB/s eta 0:00:00
+Collecting pyparsing>=2.0.2
+  Downloading pyparsing-3.0.9-py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.3/98.3 kB 17.2 MB/s eta 0:00:00
+Collecting ptyprocess>=0.5
+  Downloading ptyprocess-0.7.0-py2.py3-none-any.whl (13 kB)
+Collecting idna<4,>=2.5
+  Downloading idna-3.3-py3-none-any.whl (61 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 11.9 MB/s eta 0:00:00
+Collecting charset-normalizer~=2.0.0
+  Downloading charset_normalizer-2.0.12-py3-none-any.whl (39 kB)
+Collecting urllib3<1.27,>=1.21.1
+  Downloading urllib3-1.26.9-py2.py3-none-any.whl (138 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.0/139.0 kB 24.0 MB/s eta 0:00:00
+Collecting filelock<4,>=3.2
+  Downloading filelock-3.7.0-py3-none-any.whl (10 kB)
+Collecting platformdirs<3,>=2
+  Downloading platformdirs-2.5.2-py3-none-any.whl (14 kB)
+Collecting distlib<1,>=0.3.1
+  Downloading distlib-0.3.4-py2.py3-none-any.whl (461 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 461.2/461.2 kB 47.2 MB/s eta 0:00:00
+Collecting cryptography>=2.0
+  Downloading cryptography-37.0.2-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 77.2 MB/s eta 0:00:00
+Collecting cffi>=1.12
+  Downloading cffi-1.15.0-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (427 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 427.1/427.1 kB 40.9 MB/s eta 0:00:00
+Collecting pycparser
+  Downloading pycparser-2.21-py2.py3-none-any.whl (118 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.7/118.7 kB 18.5 MB/s eta 0:00:00
+Installing collected packages: webencodings, pylev, ptyprocess, pkginfo, msgpack, lockfile, distlib, certifi, zipp, virtualenv-clone, urllib3, tomlkit, six, shellingham, pyparsing, pycparser, platformdirs, pexpect, pastel, jeepney, idna, filelock, crashtest, charset-normalizer, cachy, requests, packaging, importlib-metadata, html5lib, clikit, cffi, virtualenv, requests-toolbelt, poetry-core, cryptography, cleo, cachecontrol, SecretStorage, pipenv, keyring, poetry
+Successfully installed SecretStorage-3.3.2 cachecontrol-0.12.11 cachy-0.3.0 certifi-2021.10.8 cffi-1.15.0 charset-normalizer-2.0.12 cleo-0.8.1 clikit-0.6.2 crashtest-0.3.1 cryptography-37.0.2 distlib-0.3.4 filelock-3.7.0 html5lib-1.1 idna-3.3 importlib-metadata-1.7.0 jeepney-0.8.0 keyring-22.3.0 lockfile-0.12.2 msgpack-1.0.3 packaging-20.9 pastel-0.2.1 pexpect-4.8.0 pipenv-2022.4.8 pkginfo-1.8.2 platformdirs-2.5.2 poetry-1.1.13 poetry-core-1.0.8 ptyprocess-0.7.0 pycparser-2.21 pylev-1.4.0 pyparsing-3.0.9 requests-2.27.1 requests-toolbelt-0.9.1 shellingham-1.4.0 six-1.16.0 tomlkit-0.10.2 urllib3-1.26.9 virtualenv-20.14.1 virtualenv-clone-0.5.7 webencodings-0.5.1 zipp-3.8.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Removing intermediate container 955dfa20e7e1
+ ---> e715fd1819b9
+Step 8/8 : CMD [ "python" ]
+ ---> Running in 8e000886dfe5
+Removing intermediate container 8e000886dfe5
+ ---> 8e2238dc9489
+Successfully built 8e2238dc9489
+Successfully tagged cdk-a8cf7740befe630b38b5f37b73128ee2373d7b1e9976c146508dd19fa6f7b302:latest
+Sending build context to Docker daemon  57.34kB
+Step 1/8 : ARG IMAGE=public.ecr.aws/sam/build-python3.7
+Step 2/8 : FROM $IMAGE
+ ---> 4d51ba39d68e
+Step 3/8 : ARG PIP_INDEX_URL
+ ---> Using cache
+ ---> 4aa26f4b359b
+Step 4/8 : ARG PIP_EXTRA_INDEX_URL
+ ---> Using cache
+ ---> 69a5beb82b9f
+Step 5/8 : ARG HTTPS_PROXY
+ ---> Using cache
+ ---> 1597b216bcdf
+Step 6/8 : RUN pip install --upgrade pip
+ ---> Using cache
+ ---> ab2132eb6838
+Step 7/8 : RUN pip install pipenv==2022.4.8 poetry
+ ---> Using cache
+ ---> e715fd1819b9
+Step 8/8 : CMD [ "python" ]
+ ---> Using cache
+ ---> 8e2238dc9489
+Successfully built 8e2238dc9489
+Successfully tagged cdk-a8cf7740befe630b38b5f37b73128ee2373d7b1e9976c146508dd19fa6f7b302:latest
+Bundling asset LambdaTestStack/CalcLambda/Code/Stage...
+WARNING: The directory '/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+Collecting numpy==1.21.6
+  Downloading numpy-1.21.6-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (15.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.7/15.7 MB 176.0 MB/s eta 0:00:00
+Installing collected packages: numpy
+Successfully installed numpy-1.21.6
