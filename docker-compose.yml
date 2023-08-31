@@ -3,22 +3,32 @@ version: "3.8"
 services:
   localstack:
     container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
-    image: localstack/localstack:0.14.1
-    network_mode: bridge
+    image: localstack/localstack:2.2.0
     ports:
-      - "127.0.0.1:53:53"                # only required for Pro (DNS)
-      - "127.0.0.1:53:53/udp"            # only required for Pro (DNS)
-      - "127.0.0.1:443:443"              # only required for Pro (LocalStack HTTPS Edge Proxy)
-      - "127.0.0.1:4510-4559:4510-4559"  # external service port range
-      - "127.0.0.1:4566:4566"            # LocalStack Edge Proxy
+      - "4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
     environment:
-      - SERVICES=${SERVICES-}
       - DEBUG=${DEBUG-}
-      - DATA_DIR=${DATA_DIR-}
-      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-}
-      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY-}  # only required for Pro
-      - HOST_TMP_FOLDER=${TMPDIR:-/tmp/}localstack
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - "${TMPDIR:-/tmp}/localstack:/tmp/localstack"
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+
+  mysql:
+    platform: linux/x86_64
+    image: mysql:8.1.0
+    restart: always
+    container_name: mysql
+
+    environment:
+      MYSQL_ROOT_PASSWORD: test_admin
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: test_admin
+      MYSQL_PASSWORD: test_admin
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
