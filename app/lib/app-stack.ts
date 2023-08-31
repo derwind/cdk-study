@@ -73,13 +73,7 @@ export class AppStack extends cdk.Stack {
       }),
       proxy: false,
     });
-    const data = testApiGW.root.addResource("data", {
-      defaultCorsPreflightOptions: {
-        allowOrigins: apigw.Cors.ALL_ORIGINS,
-        allowMethods: apigw.Cors.ALL_METHODS,
-        allowHeaders: apigw.Cors.DEFAULT_HEADERS,
-      },
-    });
+    const data = testApiGW.root.addResource("data");
     data.addMethod("GET", new apigw.LambdaIntegration(showTableLambda));
     data.addMethod("POST", new apigw.LambdaIntegration(registerDataLambda));
 
