@@ -1,10 +1,9 @@
-import { ReactEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "./assets/react.svg";
 import "./App.css";
 import axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
 
   useEffect(() => {
